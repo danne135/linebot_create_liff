@@ -1,4 +1,5 @@
 from flask import Flask, request, abort, render_template
+
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -6,29 +7,30 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import *
+
 from liffpy import (
     LineFrontendFramework as LIFF,
     ErrorResponse
 )
-import os
 
-app = Flask(__name__, template_folder='templates')
+#======這裡是呼叫的檔案內容=====
+from message import *
+from new import *
+from Function import *
+#======這裡是呼叫的檔案內容=====
+
+#======python的函數庫==========
+import  os
+import time
+#======python的函數庫==========
+
+
+app = Flask(__name__,template_folder='templates')
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
-channel_access_token = os.getenv('co8ujSpXAemy3BjpjuSmOkEhUDnwnDmzCwsCtN/5httvZW+17I3ty4PN1LxwzN4Zku0ni0kQ+XK3VwKqkwGnAjwFRPY/ujvnzoOfnFU1dmFxLWdjmriP2+SmQ1I+O9jURfasevDW78dWfOIYBLZZ2QdB04t89/1O/w1cDnyilFU=')
-if channel_access_token is None:
-    raise ValueError("CHANNEL_ACCESS_TOKEN environment variable is not set or has no value.")
-line_bot_api = LineBotApi(channel_access_token)
-
-handler_secret = os.getenv('HANDLER_SECRET')
-if handler_secret is None:
-    raise ValueError("HANDLER_SECRET environment variable is not set or has no value.")
-handler = WebhookHandler(handler_secret)
-
-liff_api_token = os.getenv('Ue3f6985f37141fff5f5f466ca20df3c7')
-if liff_api_token is None:
-    raise ValueError("LIFF_API_TOKEN environment variable is not set or has no value.")
-liff_api = LIFF(liff_api_token)
+liff_api = LIFF(os.getenv('co8ujSpXAemy3BjpjuSmOkEhUDnwnDmzCwsCtN/5httvZW+17I3ty4PN1LxwzN4Zku0ni0kQ+XK3VwKqkwGnAjwFRPY/ujvnzoOfnFU1dmFxLWdjmriP2+SmQ1I+O9jURfasevDW78dWfOIYBLZZ2QdB04t89/1O/w1cDnyilFU='))
+line_bot_api = LineBotApi(os.getenv('co8ujSpXAemy3BjpjuSmOkEhUDnwnDmzCwsCtN/5httvZW+17I3ty4PN1LxwzN4Zku0ni0kQ+XK3VwKqkwGnAjwFRPY/ujvnzoOfnFU1dmFxLWdjmriP2+SmQ1I+O9jURfasevDW78dWfOIYBLZZ2QdB04t89/1O/w1cDnyilFU='))
+handler = WebhookHandler(os.getenv('f9c9c240b595cc03fe498a9f08a4aa32'))
 
 try:
     now_LIFF_APP_number = len(liff_api.get())
@@ -36,22 +38,24 @@ except:
     now_LIFF_APP_number = 0
 
 target_LIFF_APP_number = 10
-print(target_LIFF_APP_number, now_LIFF_APP_number)
+print(target_LIFF_APP_number,now_LIFF_APP_number)
 if now_LIFF_APP_number < target_LIFF_APP_number:
     for i in range(target_LIFF_APP_number - now_LIFF_APP_number):
-        liff_api.add(view_type="full", view_url="https://www.google.com")
-
+        liff_api.add(view_type="full",view_url="https://www.google.com")
 
 @app.route("/")
 def index():
     return render_template("./liff.html")
 
-
+# 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
+    # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
+    # get request body as text
     body = request.get_data(as_text=True)
     app.logger.info("Request body: " + body)
+    # handle webhook body
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
@@ -59,6 +63,7 @@ def callback():
     return 'OK'
 
 
+# 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     msg = event.message.text
@@ -80,13 +85,13 @@ def handle_message(event):
     elif '功能列表' in msg:
         message = function_list()
         line_bot_api.reply_message(event.reply_token, message)
+
     else:
         message = TextSendMessage(text=msg)
         line_bot_api.reply_message(event.reply_token, message)
 
-
 @handler.add(PostbackEvent)
-def handle_postback(event):
+def handle_message(event):
     if event.postback.data == 'Maso的鑄鐵坊':
         message = TextSendMessage(text="Maso的鑄鐵坊，目前施工中...")
         line_bot_api.reply_message(event.reply_token, message)
@@ -100,8 +105,9 @@ def welcome(event):
     name = profile.display_name
     message = TextSendMessage(text=f'{name}歡迎加入')
     line_bot_api.reply_message(event.reply_token, message)
-
-
+        
+        
+import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
