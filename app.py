@@ -15,7 +15,7 @@ import os
 app = Flask(__name__, template_folder='templates')
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
-channel_access_token = os.getenv('dL8QLpd3/PTTkj/YWvVSJSqyNZhgh3+v/LtkMjq/HeZcoVAo346tlFmhVgHhj6C0+cM8IwTbLP+CavynXNPxj8U6EOKCQRxakcGURRqMEazbX0zxD2mBK4eX+dsouruWiPjKxk7yPWWwhsqk/An0XwdB04t89/1O/w1cDnyilFU=')
+channel_access_token = os.getenv('co8ujSpXAemy3BjpjuSmOkEhUDnwnDmzCwsCtN/5httvZW+17I3ty4PN1LxwzN4Zku0ni0kQ+XK3VwKqkwGnAjwFRPY/ujvnzoOfnFU1dmFxLWdjmriP2+SmQ1I+O9jURfasevDW78dWfOIYBLZZ2QdB04t89/1O/w1cDnyilFU=')
 if channel_access_token is None:
     raise ValueError("CHANNEL_ACCESS_TOKEN environment variable is not set or has no value.")
 line_bot_api = LineBotApi(channel_access_token)
@@ -25,7 +25,7 @@ if handler_secret is None:
     raise ValueError("HANDLER_SECRET environment variable is not set or has no value.")
 handler = WebhookHandler(handler_secret)
 
-liff_api_token = os.getenv('b654850f7cade6be6cdf8ab0060ca163')
+liff_api_token = os.getenv('Ue3f6985f37141fff5f5f466ca20df3c7')
 if liff_api_token is None:
     raise ValueError("LIFF_API_TOKEN environment variable is not set or has no value.")
 liff_api = LIFF(liff_api_token)
