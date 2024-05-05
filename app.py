@@ -28,7 +28,7 @@ import time
 app = Flask(__name__,template_folder='templates')
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
-liff_api = LIFF(os.getenv('co8ujSpXAemy3BjpjuSmOkEhUDnwnDmzCwsCtN/5httvZW+17I3ty4PN1LxwzN4Zku0ni0kQ+XK3VwKqkwGnAjwFRPY/ujvnzoOfnFU1dmFxLWdjmriP2+SmQ1I+O9jURfasevDW78dWfOIYBLZZ2QdB04t89/1O/w1cDnyilFU='))
+liff_api = LIFF(os.getenv('https://liff.line.me/2004820808-LDWaEPqW'))
 line_bot_api = LineBotApi(os.getenv('co8ujSpXAemy3BjpjuSmOkEhUDnwnDmzCwsCtN/5httvZW+17I3ty4PN1LxwzN4Zku0ni0kQ+XK3VwKqkwGnAjwFRPY/ujvnzoOfnFU1dmFxLWdjmriP2+SmQ1I+O9jURfasevDW78dWfOIYBLZZ2QdB04t89/1O/w1cDnyilFU='))
 handler = WebhookHandler(os.getenv('f9c9c240b595cc03fe498a9f08a4aa32'))
 
