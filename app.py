@@ -28,9 +28,9 @@ import time
 app = Flask(__name__,template_folder='templates')
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
-liff_api = LIFF(os.getenv('CHANNEL_ACCESS_TOKEN'))
-line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
-handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
+liff_api = LIFF(os.getenv('dL8QLpd3/PTTkj/YWvVSJSqyNZhgh3+v/LtkMjq/HeZcoVAo346tlFmhVgHhj6C0+cM8IwTbLP+CavynXNPxj8U6EOKCQRxakcGURRqMEazbX0zxD2mBK4eX+dsouruWiPjKxk7yPWWwhsqk/An0XwdB04t89/1O/w1cDnyilFU='))
+line_bot_api = LineBotApi(os.getenv('dL8QLpd3/PTTkj/YWvVSJSqyNZhgh3+v/LtkMjq/HeZcoVAo346tlFmhVgHhj6C0+cM8IwTbLP+CavynXNPxj8U6EOKCQRxakcGURRqMEazbX0zxD2mBK4eX+dsouruWiPjKxk7yPWWwhsqk/An0XwdB04t89/1O/w1cDnyilFU='))
+handler = WebhookHandler(os.getenv('b654850f7cade6be6cdf8ab0060ca163'))
 
 try:
     now_LIFF_APP_number = len(liff_api.get())
