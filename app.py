@@ -1,43 +1,22 @@
 from flask import Flask, request, abort, render_template
-
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
+from linebot import (LineBotApi, WebhookHandler)
+from linebot.exceptions import(InvalidSignatureError)
 from linebot.models import *
-
-from liffpy import (
-    LineFrontendFramework as LIFF,
-    ErrorResponse
-)
-
-#======這裡是呼叫的檔案內容=====
+from liffpy import (LineFrontendFramework as LIFF, ErrorResponse)
 from message import *
 from new import *
 from Function import *
-#======這裡是呼叫的檔案內容=====
+import os
 
-#======python的函數庫==========
-import  os
-import time
-#======python的函數庫==========
+app = Flask(__name__,static_folder='static', template_folder='templates')
 
+CHANNEL_ACCESS_TOKEN = os.getenv('co8ujSpXAemy3BjpjuSmOkEhUDnwnDmzCwsCtN/5httvZW+17I3ty4PN1LxwzN4Zku0ni0kQ+XK3VwKqkwGnAjwFRPY/ujvnzoOfnFU1dmFxLWdjmriP2+SmQ1I+O9jURfasevDW78dWfOIYBLZZ2QdB04t89/1O/w1cDnyilFU="
+')
+CHANNEL_SECRET = os.getenv('f9c9c240b595cc03fe498a9f08a4aa32')
 
-app = Flask(__name__,template_folder='templates')
-static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
-
-CHANNEL_ACCESS_TOKEN="co8ujSpXAemy3BjpjuSmOkEhUDnwnDmzCwsCtN/5httvZW+17I3ty4PN1LxwzN4Zku0ni0kQ+XK3VwKqkwGnAjwFRPY/ujvnzoOfnFU1dmFxLWdjmriP2+SmQ1I+O9jURfasevDW78dWfOIYBLZZ2QdB04t89/1O/w1cDnyilFU="
-CHANNEL_SECRET='f9c9c240b595cc03fe498a9f08a4aa32'
-
-liff_api = LIFF(os.getenv('CHANNEL_ACCESS_TOKEN'))
-line_bot_api = LineBotApi(os.getenv('CHANNEL_ACCESS_TOKEN'))
-handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
-try:
-    now_LIFF_APP_number = len(liff_api.get())
-except:
-    now_LIFF_APP_number = 0
+liff_api = LIFF(CHANNEL_ACCESS_TOKEN)
+line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(CHANNEL_SECRET)
 
 target_LIFF_APP_number = 10
 print(target_LIFF_APP_number,now_LIFF_APP_number)
