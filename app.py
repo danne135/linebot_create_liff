@@ -27,7 +27,7 @@ handler = WebhookHandler(CHANNEL_SECRET)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("liff.html")
 
 @app.route("/callback", methods=['POST'])
 def callback():
