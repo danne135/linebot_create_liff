@@ -14,9 +14,8 @@ from Function import *
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # 環境變數取得token和secret
-CHANNEL_ACCESS_TOKEN = os.getenv('co8ujSpXAemy3BjpjuSmOkEhUDnwnDmzCwsCtN/5httvZW+17I3ty4PN1LxwzN4Zku0ni0kQ+XK3VwKqkwGnAjwFRPY/ujvnzoOfnFU1dmFxLWdjmriP2+SmQ1I+O9jURfasevDW78dWfOIYBLZZ2QdB04t89/1O/w1cDnyilFU=
-')
-CHANNEL_SECRET = os.getenv('f9c9c240b595cc03fe498a9f08a4aa32')
+CHANNEL_ACCESS_TOKEN = os.getenv('CHANNEL_ACCESS_TOKEN')
+CHANNEL_SECRET = os.getenv('CHANNEL_SECRET')
 
 # 確保環境變數存在
 if CHANNEL_ACCESS_TOKEN is None or CHANNEL_SECRET is None:
