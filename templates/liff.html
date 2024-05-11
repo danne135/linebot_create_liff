@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LINEBOT</title>
+    <title>丹尼LINEBOT</title>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
     <script>
@@ -136,8 +136,25 @@
         function liff_LINE_Card() {
             liff.shareTargetPicker(
                 [{
-  "type": "text",
-  "text": "您好！"
+  "type": "template",
+  "altText": "this is a buttons template",
+  "template": {
+    "type": "buttons",
+    "title": "Question 3",
+    "text": "Which card do you prefer ? ",
+    "actions": [
+      {
+        "type": "message",
+        "label": "Discount Service",
+        "text": "Discount Service"
+      },
+      {
+        "type": "message",
+        "label": "Mileage Service",
+        "text": "Mileage Service"
+      }
+    ]
+  }
 }], {
                     isMultiple: true,
                 }
